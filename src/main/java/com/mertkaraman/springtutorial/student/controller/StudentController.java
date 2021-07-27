@@ -1,5 +1,7 @@
-package com.mertkaraman.springtutorial.student;
+package com.mertkaraman.springtutorial.student.controller;
 
+import com.mertkaraman.springtutorial.student.entity.StudentEntity;
+import com.mertkaraman.springtutorial.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +19,12 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> getStudents() {
+    public List<StudentEntity> getStudents() {
         return studentService.getStudents();
     }
 
     @PostMapping
-    public void registerNewStudent(@RequestBody Student student) {
+    public void registerNewStudent(@RequestBody StudentEntity student) {
         studentService.addNewStudent(student);
     }
 

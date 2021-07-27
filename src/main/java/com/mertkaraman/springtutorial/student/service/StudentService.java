@@ -1,5 +1,7 @@
-package com.mertkaraman.springtutorial.student;
+package com.mertkaraman.springtutorial.student.service;
 
+import com.mertkaraman.springtutorial.student.entity.StudentEntity;
+import com.mertkaraman.springtutorial.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,12 +20,12 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public List<Student> getStudents() {
+    public List<StudentEntity> getStudents() {
         return studentRepository.findAll();
     }
 
-    public void addNewStudent(Student student) {
-        Optional<Student> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
+    public void addNewStudent(StudentEntity student) {
+        Optional<StudentEntity> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
         if (studentOptional.isPresent()) {
             throw new IllegalStateException("email taken"); //postmanda cıkar.
         }
@@ -40,7 +42,7 @@ public class StudentService {
 
     @Transactional
     public void updateStudent(Long studentId, String name, String email) {
-        Student student = studentRepository.findById(studentId).orElseThrow(() ->
+        StudentEntity student = studentRepository.findById(studentId).orElseThrow(() ->
                 new IllegalStateException("student with id " + studentId + " does not exist"));
 
         if (name != null && name.length() > 0 && !Objects.equals(student.getName(), name)) {
@@ -48,7 +50,7 @@ public class StudentService {
         }
 
         if (email != null && email.length() > 0 && !Objects.equals(student.getEmail(), email)) {
-            Optional<Student> studentOptional = studentRepository.findStudentByEmail(email);
+            Optional<StudentEntity> studentOptional = studentRepository.findStudentByEmail(email);
             if (studentOptional.isPresent()){
                 throw new IllegalStateException(("email taken"));
             }
