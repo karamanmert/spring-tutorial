@@ -22,11 +22,6 @@ public class StudentController {
     }
 
     @GetMapping
-    public String hello(){
-        return "hello";
-    }
-
-    @GetMapping
     public ResponseEntity<List<StudentEntity>> getStudents() {
         List<StudentEntity> students = studentService.getStudents();
         return ResponseEntity.status(HttpStatus.OK).body(students);  //  //return ResponseEntity.ok(students);
