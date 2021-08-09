@@ -1,6 +1,6 @@
 package com.mertkaraman.springtutorial.student.config;
 
-import com.mertkaraman.springtutorial.student.entity.StudentEntity;
+import com.mertkaraman.springtutorial.student.entity.Student;
 import com.mertkaraman.springtutorial.student.repository.StudentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -18,12 +18,13 @@ public class StudentConfig {
     @Bean
     CommandLineRunner commandLineRunner(StudentRepository repository) {
         return args -> {
-            StudentEntity mert = new StudentEntity(
+
+            Student mert = new Student(
                     "mert",
                     "mert@gmail.com",
                     LocalDate.of(1995, APRIL, 1)
                     );
-            StudentEntity yigit = new StudentEntity(
+            Student yigit = new Student(
                     "yigit",
                     "yigit@gmail.com",
                     LocalDate.of(1988, AUGUST, 8)
@@ -31,6 +32,10 @@ public class StudentConfig {
             repository.saveAll(
                     List.of(mert, yigit)
             );
+
         };
+
+
     }
+
 }

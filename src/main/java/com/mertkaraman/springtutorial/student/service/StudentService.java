@@ -1,6 +1,7 @@
 package com.mertkaraman.springtutorial.student.service;
 
-import com.mertkaraman.springtutorial.student.entity.StudentEntity;
+import com.mertkaraman.springtutorial.exception.ApiRequestException;
+import com.mertkaraman.springtutorial.student.entity.Student;
 import com.mertkaraman.springtutorial.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,14 +21,17 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public List<StudentEntity> getStudents() {
+    public List<Student> getStudents() {
+        List<Student> students = studentRepository.findAll();
+        if (students.isEmpty())
+            throw new ApiRequestException("Opps cannot get all students!");
         return studentRepository.findAll();
     }
 
-    public void addNewStudent(StudentEntity student) {
-        Optional<StudentEntity> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
+    public void addNewStudent(Student student) {
+        Optional<Student> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
         if (studentOptional.isPresent()) {
-            throw new IllegalStateException("email taken"); //postmanda cıkar.
+            throw new ApiRequestException("email taken !!");
         }
         studentRepository.save(student);
     }
@@ -35,24 +39,24 @@ public class StudentService {
     public void deleteStudent(Long studentId) {
         boolean exists = studentRepository.existsById(studentId);
         if (!exists) {
-            throw new IllegalStateException("student with id " + studentId + " does not exist");
+            throw new ApiRequestException("student with id " + studentId + " does not exist");
         }
         studentRepository.deleteById(studentId);
     }
 
     @Transactional
     public void updateStudent(Long studentId, String name, String email) {
-        StudentEntity student = studentRepository.findById(studentId).orElseThrow(() ->
-                new IllegalStateException("student with id " + studentId + " does not exist"));
+        Student student = studentRepository.findById(studentId).orElseThrow(() ->
+                new ApiRequestException("student with id " + studentId + " does not exist"));
 
         if (name != null && name.length() > 0 && !Objects.equals(student.getName(), name)) {
             student.setName(name);
         }
 
         if (email != null && email.length() > 0 && !Objects.equals(student.getEmail(), email)) {
-            Optional<StudentEntity> studentOptional = studentRepository.findStudentByEmail(email);
+            Optional<Student> studentOptional = studentRepository.findStudentByEmail(email);
             if (studentOptional.isPresent()){
-                throw new IllegalStateException(("email taken"));
+                throw new ApiRequestException(("email taken"));
             }
             student.setEmail(email);
         }
