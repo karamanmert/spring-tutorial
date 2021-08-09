@@ -1,6 +1,6 @@
 package com.mertkaraman.springtutorial.student.service;
 
-import com.mertkaraman.springtutorial.exception.ApiRequestException;
+import com.mertkaraman.springtutorial.student.exception.ApiRequestException;
 import com.mertkaraman.springtutorial.student.entity.Student;
 import com.mertkaraman.springtutorial.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;

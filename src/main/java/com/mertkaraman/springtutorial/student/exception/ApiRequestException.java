@@ -1,4 +1,4 @@
-package com.mertkaraman.springtutorial.exception;
+package com.mertkaraman.springtutorial.student.exception;
 
 public class ApiRequestException extends RuntimeException{
     public ApiRequestException(String message) {

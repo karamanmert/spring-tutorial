@@ -1,4 +1,4 @@
-package com.mertkaraman.springtutorial.exception;
+package com.mertkaraman.springtutorial.student.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
