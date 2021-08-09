@@ -1,9 +1,9 @@
 package com.mertkaraman.springtutorial.student.controller;
 
-import com.mertkaraman.springtutorial.student.entity.StudentEntity;
+import com.mertkaraman.springtutorial.exception.ApiRequestException;
+import com.mertkaraman.springtutorial.student.entity.Student;
 import com.mertkaraman.springtutorial.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +22,13 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StudentEntity>> getStudents() {
-        List<StudentEntity> students = studentService.getStudents();
+    public ResponseEntity<List<Student>> getStudents() {
+        List<Student> students = studentService.getStudents();
         return ResponseEntity.status(HttpStatus.OK).body(students);  //  //return ResponseEntity.ok(students);
     }
 
     @PostMapping
-    public ResponseEntity<Void> registerNewStudent(@RequestBody StudentEntity student) {
+    public ResponseEntity<Void> registerNewStudent(@RequestBody Student student) {
         studentService.addNewStudent(student);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -47,6 +47,7 @@ public class StudentController {
                               @RequestParam(required = false) String name,
                               @RequestParam(required = false) String email) {
         studentService.updateStudent(studentId, name, email);
+
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
