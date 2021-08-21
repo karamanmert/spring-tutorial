@@ -1,4 +1,4 @@
-package com.mertkaraman.springtutorial.student.exception;
+package com.mertkaraman.springtutorial.location.exception;
 
 import org.springframework.http.HttpStatus;
 
