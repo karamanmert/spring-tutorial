@@ -1,0 +1,99 @@
+@BEAN, @AUTOWIRED, @COMPONENT
+
+@RestController
+public class Movie ..{
+    @GetMapping()
+    public List<CatalogItem> getCatalog(){
+        RestTemplate rest = new RestTemplate();
+        ...
+        ...
+        Movie movie = rest;
+    }
+}
+-Goruldugu üzere RestTemplate class'ı, getCatalog methodu içerisinde
+new ile çağırılıyor. Yani getCatalog methoduna ne kadar istek gelirse,
+RestTemplate'in o kadar instance'ı yaratılacak.
+
+!!The idea is it should come from somewhere else, not to be hard-coded!
+-Every time request comes in to getCatalog, a new RestTemplate instance will created.
+
+*****MAKE ONE INSTANCE, USE EVERYWHERE.
+
+!!How do you create a single instance of any object in any spring app and
+have it shared across multiple other classes?
+-> create a BEAN ****
+!!!Beans in spring are by default SINGLETON's.
+(Beans are method level annotations)
+
+Answer to our problem is put RestTemplate in a Bean and then use dependency injection.
+(Return type is important!)
+pulic class XX(){
+    @Bean
+    public RestTemplate getRestTemplate(){
+        return new RestTemplate()
+    }
+}
+->Hey spring give me that one instance
+->Spring is gonna execute this method,
+whatever you "return, RestTemplate maps to this one instance".
+!Whoever autowires RestTemplate, they are gonna get this one instance.
+
+Ex: .. some code blocks..
+@RestController
+public class Movie(){
+    @Autowired
+    private RestTemplate restTemplate;
+
+    public List<Catalog> getCatalog(){
+        ...
+        Movie movie =restTemplate. xyz ..
+
+    }
+}
+ @Autowired :  Somebody has a bean in somewhere of type RestTemplate, inject it!
+
+@Autowired is a consumer. We are basically telling to spring, give me something!!
+@Bean is a producer. We are basically telling to spring,
+Hey i have something that other people will need. Execute this method,
+save it in somewhere, if someone want to use it, just give it!...
+
+@Bean -> Method level annotation
+@Component -> Class level annotation..
+bunlar aynı işi yapar. sadece levelleri farklı
+
+@Component
+class Mert{
+    ..
+}
+Bunu dediğimiz anda Spring Container içerisinde bu Mert classının bir instance'ı yaratılır
+kullanmak isteyen inject eder!
+****SPRING CONTAINER ICERISINDEKI OBJECTLERE BEAN DENIR!.
+
+________________________
+|                       |
+|   |__|       |__|     |
+|    x          Mert    |  -> Spring Container
+|                       |
+________________________
+
+Ex: Lets say we mapped Mert class as component and we want to use Mert class
+in another class such as X.
+X depends on Mert..
+We dont want to create an instance of Mert inside of X class.(not use new)
+Because if we do like that, everytime we call the X class, Mert will created again and again.
+If we use @Component or @Bean annotation(depends on the level) we can create one instance
+of that object inside of Spring Container.
+!Whenever we need to use that class we just inject it in our code with Dependency Injection.
+
+@Component
+class Mert{
+...
+}
+
+class X{
+    @Autowired
+    private Mert mert; -> field injection
+    ....
+    mert.getListOfSkills();
+    ...
+}
