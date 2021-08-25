@@ -11,7 +11,7 @@ import java.util.List;
 
 import static java.time.Month.APRIL;
 import static java.time.Month.AUGUST;
-
+//@Configuration used by Spring Containers as a source of bean definitions.
 @Configuration
 public class StudentConfig {
     //Command Line Runner is an interface. It is used to execute the code after the Spring Boot application started

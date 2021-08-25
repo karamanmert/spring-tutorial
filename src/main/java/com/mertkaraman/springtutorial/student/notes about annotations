@@ -44,7 +44,10 @@ return "bookList";
 @DeleteMapping: It maps the HTTP DELETE requests on the specific handler method. It is used to create a web service endpoint that deletes a resource. It is used instead of using: @RequestMapping(method = RequestMethod.DELETE)
 
 -------------------------------------
-@Autowired: Spring provides annotation-based auto-wiring by providing @Autowired annotation. It is used to autowire spring bean on setter methods, instance variable, and constructor. When we use @Autowired annotation, the spring container auto-wires the bean by matching data-type
+@Autowired: Spring provides annotation-based auto-wiring by providing @Autowired annotation.
+It is used to autowire spring bean on setter methods, instance variable, and constructor.
+When we use @Autowired annotation, the spring container auto-wires the bean by matching data-type
+
 @Component
 public class Customer
 {
@@ -57,8 +60,22 @@ this.person=person;
 }
 
 -------------------------------------
-@RequestBody: It is used to bind HTTP request with an object in a method parameter. Internally it uses HTTP MessageConverters to convert the body of the request. When we annotate a method parameter with @RequestBody, the Spring framework binds the incoming HTTP request body to that parameter.
+https://bushansirgur.in/spring-boot-requestbody-annotation-example/
+@RequestBody: It is used to bind HTTP request with an object in a method parameter.
+Internally it uses HTTP MessageConverters to convert the body of the request.
+When we annotate a method parameter with @RequestBody, the Spring framework binds the incoming HTTP request body to that parameter.
+ex:
+@PostMapping("/users")
+public void printData(@RequestBody User user) {
+}
+postman ile { "firstName" : "Elmer", "lastName" : "Fudd" } bunu gönderdiğin zaman User olarak bunu alır. binding işlemi yapar.
 
+https://bushansirgur.in/spring-boot-responsebody-annotation-with-example/
+
+@ResponseBody:
+@ResponseBody annotation can be put on a method and indicates that the method return type should bind to the HTTP response body
+(and not placed in a Model, or interpreted as a view name).
+@Controller kullandıgımızda bunu kullanırız. setlenen videoları json a çevirir. videoyu izle. RestCOntrollerda kullanmaya gerke yok.
 
 -------------------------------------
 @PathVariable: It is used to extract the values from the URI. It is most suitable for the RESTful web service, where the URL contains a path variable. We can define multiple @PathVariable in a method.
@@ -75,6 +92,11 @@ The @Entity annotation specifies that the class is an entity and is mapped to a 
 The @Table annotation specifies the name of the database table to be used for mapping.
 
 The @Id annotation specifies the primary key of an entity and the @GeneratedValue provides for the specification of generation strategies for the values of primary keys.
+
+
+
+--------------------------------------------------------------------------
+
 
 
 https://zetcode.com/springboot/annotations/
