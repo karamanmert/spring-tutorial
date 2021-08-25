@@ -94,6 +94,7 @@ The @Table annotation specifies the name of the database table to be used for ma
 The @Id annotation specifies the primary key of an entity and the @GeneratedValue provides for the specification of generation strategies for the values of primary keys.
 
 
+<<<<<<< HEAD:src/main/java/com/mertkaraman/springtutorial/student/notes about annotations
 
 --------------------------------------------------------------------------
 
@@ -101,3 +102,8 @@ The @Id annotation specifies the primary key of an entity and the @GeneratedValu
 
 https://zetcode.com/springboot/annotations/
 mert karaman
+=======
+https://zetcode.com/springboot/annotations/
+
+mert
+>>>>>>> 80ae3313d0c9cde3d0a60300925acee43db6d5cf:src/main/java/com/mertkaraman/springtutorial/student/note about annotations
